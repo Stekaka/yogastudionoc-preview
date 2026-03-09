@@ -2,9 +2,12 @@
   "name": "yogastudionoc",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/fix-vercel-runtime.mjs",
     "preview": "astro preview",
     "lint": "echo \"No lint configured\"",
     "format": "prettier --write ."
