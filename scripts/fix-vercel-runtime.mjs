@@ -5,8 +5,8 @@
  * is deprecated on Vercel as of 2025-09-01).
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const outDir = path.join(process.cwd(), '.vercel', 'output', 'functions');
 if (!fs.existsSync(outDir)) {
