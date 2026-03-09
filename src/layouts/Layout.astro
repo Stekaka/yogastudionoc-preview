@@ -80,6 +80,73 @@ const {
               Boka
             </a>
           </nav>
+          <button
+            id="ys-mobile-menu-btn"
+            type="button"
+            class="md:hidden inline-flex items-center justify-center h-11 w-11 rounded-full bg-[#F5F2ED]/30 hover:bg-[#F5F2ED]/55 backdrop-blur-lg shadow-[0_6px_18px_rgba(0,0,0,0.08)] ring-1 ring-black/5 transition"
+            aria-label="Öppna meny"
+            aria-controls="ys-mobile-menu"
+            aria-expanded="false"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M4 7H20" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
+              <path d="M4 12H20" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
+              <path d="M4 17H20" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="ys-mobile-menu" class="md:hidden" hidden>
+          <div
+            data-ys-mobile-overlay
+            class="fixed inset-0 z-50 bg-black/25 backdrop-blur-[2px]"
+            aria-hidden="true"
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Meny"
+            class="fixed right-0 top-0 z-50 h-dvh w-[19rem] max-w-[86vw] bg-[#F5F2ED]/85 backdrop-blur-xl shadow-2xl ring-1 ring-black/10"
+          >
+            <div class="flex items-center justify-between px-5 py-5 border-b border-black/5">
+              <span class="font-serif text-lg tracking-wide text-[#2D2D2D]">Meny</span>
+              <button
+                type="button"
+                data-ys-mobile-close
+                class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-[#F5F2ED]/40 hover:bg-[#F5F2ED]/70 ring-1 ring-black/5 transition"
+                aria-label="Stäng meny"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d="M6 6L18 18" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
+                  <path d="M18 6L6 18" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+
+            <nav class="px-5 py-5">
+              <ul class="flex flex-col gap-2 text-base font-medium tracking-wide">
+                <li><a href="/kurser" class="block px-3 py-3 rounded-xl hover:bg-black/5 hover:text-[#c8a96e] transition-colors">Kurser</a></li>
+                <li><a href="/om-oss" class="block px-3 py-3 rounded-xl hover:bg-black/5 hover:text-[#c8a96e] transition-colors">Om oss</a></li>
+                <li><a href="/lar-dig-mer" class="block px-3 py-3 rounded-xl hover:bg-black/5 hover:text-[#c8a96e] transition-colors">Lär dig mer</a></li>
+                <li><a href="/recept" class="block px-3 py-3 rounded-xl hover:bg-black/5 hover:text-[#c8a96e] transition-colors">Recept</a></li>
+                <li><a href="/boka" class="block px-3 py-3 rounded-xl hover:bg-black/5 hover:text-[#c8a96e] transition-colors">Boka</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </header>
 
@@ -121,6 +188,42 @@ const {
       }
       clearKurserNavState();
       document.addEventListener("astro:page-load", clearKurserNavState);
+    </script>
+    <script>
+      function initMobileMenu() {
+        const btn = document.getElementById("ys-mobile-menu-btn");
+        const menu = document.getElementById("ys-mobile-menu");
+        if (!btn || !menu) return;
+        if (btn.dataset.ysMobileMenuBound === "1") return;
+        btn.dataset.ysMobileMenuBound = "1";
+
+        const overlay = menu.querySelector("[data-ys-mobile-overlay]");
+        const closeBtn = menu.querySelector("[data-ys-mobile-close]");
+
+        const setOpen = (open) => {
+          menu.hidden = !open;
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+          document.body.classList.toggle("overflow-hidden", open);
+        };
+
+        const toggle = () => setOpen(menu.hidden);
+        const close = () => setOpen(false);
+
+        btn.addEventListener("click", toggle);
+        overlay?.addEventListener("click", close);
+        closeBtn?.addEventListener("click", close);
+
+        menu.querySelectorAll("a[href]").forEach((a) => a.addEventListener("click", close));
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") close();
+        });
+
+        // Ensure it closes on route changes (ViewTransitions / SPA-ish nav)
+        document.addEventListener("astro:before-swap", close);
+      }
+
+      document.addEventListener("astro:page-load", initMobileMenu);
     </script>
   </body>
 </html>

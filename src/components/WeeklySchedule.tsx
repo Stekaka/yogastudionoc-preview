@@ -247,7 +247,13 @@ const WeeklySchedule: React.FC<{ transparentBackground?: boolean; compactHeading
   }, [allClasses]);
 
   const handleToggle = (id: string) => {
-    setOpenId((current) => (current === id ? null : id));
+    setOpenId((current) => {
+      if (current === id) {
+        setHighlightId(null);
+        return null;
+      }
+      return id;
+    });
   };
 
   const handleBook = (cls: ClassItem) => {

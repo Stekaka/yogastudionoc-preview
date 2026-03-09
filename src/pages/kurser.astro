@@ -713,12 +713,23 @@ const courseSchema = {
     color: var(--accent);
   }
 
-  /* Mobil: expanderad bild samma proportioner som desktop (18/14) */
+  /* Mobil: expandera endast nedåt – behåll samma rubrik/miniatyr, växla inte till stor bild */
   @media (max-width: 639px) {
     .ys-course-item.is-expanded .ys-course-thumb-wrap {
-      width: min(18rem, 85vw);
-      height: min(14rem, 70vmin);
-      aspect-ratio: 18 / 14;
+      width: 6rem;
+      height: 6rem;
+      aspect-ratio: 1;
+    }
+
+    .ys-course-item.is-expanded .ys-course-expanded {
+      height: auto;
+      max-height: none;
+      overflow: visible;
+    }
+
+    .ys-course-item.is-expanded .ys-course-expanded-inner {
+      overflow: visible;
+      height: auto;
     }
   }
 

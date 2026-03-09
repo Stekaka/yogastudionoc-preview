@@ -1,19 +1,19 @@
 ---
-import BokaLayout from "../layouts/BokaLayout.astro";
+import Layout from "../layouts/Layout.astro";
 import WeeklySchedule from "../components/WeeklySchedule";
 ---
 
-<BokaLayout
+<Layout
   title="Boka | Yogastudion"
   description="Boka ditt yogapass på Yogastudion i Göteborg. Välj klass i veckoschemat och skicka en förfrågan till läraren."
 >
-  <div class="bg-[#FAF9F6] min-h-screen">
+  <div class="bg-transparent min-h-screen">
     <!-- Hero – tydlig bokningsintro -->
     <section class="mx-auto max-w-6xl px-4 pt-10 pb-6 md:pt-14 md:pb-8">
-      <h1 class="text-3xl font-semibold text-[#1A1A1A] md:text-4xl" style="font-family: 'Cormorant Garamond', serif;">
+      <h1 class="font-serif text-3xl font-semibold text-[#2D2D2D] md:text-4xl">
         Boka
       </h1>
-      <p class="mt-2 max-w-xl text-[#1A1A1A]/80 text-base" style="font-family: 'Inter', sans-serif;">
+      <p class="mt-2 max-w-xl text-[#2D2D2D]/75 text-base">
         Välj vecka och pass i schemat nedan, klicka på en klass och sedan Boka plats. Du skickar en förfrågan till läraren – vi återkommer med bekräftelse.
       </p>
     </section>
@@ -23,23 +23,23 @@ import WeeklySchedule from "../components/WeeklySchedule";
 
     <!-- Kontakt -->
     <section class="mx-auto max-w-6xl px-4 pb-20 md:pb-28" aria-labelledby="boka-kontakt-heading">
-      <div class="rounded-2xl border border-[#8F9779]/15 bg-white/90 p-6 md:p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] max-w-2xl">
-        <h2 id="boka-kontakt-heading" class="text-xl font-semibold text-[#1A1A1A] mb-2" style="font-family: 'Cormorant Garamond', serif;">
+      <div class="rounded-2xl border border-black/5 bg-white/90 p-6 md:p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] max-w-2xl">
+        <h2 id="boka-kontakt-heading" class="font-serif text-xl font-semibold text-[#2D2D2D] mb-2">
           Kontakt
         </h2>
-        <p class="text-sm text-[#1A1A1A]/70 mb-4" style="font-family: 'Inter', sans-serif;">
+        <p class="text-sm text-[#2D2D2D]/70 mb-4">
           Frågor om bokning eller klasser? Hör av er.
         </p>
-        <div class="flex flex-col gap-2 text-sm text-[#1A1A1A]/90" style="font-family: 'Inter', sans-serif;">
+        <div class="flex flex-col gap-2 text-sm text-[#2D2D2D]/90">
           <p>Vegagatan 16, 413 09 Göteborg</p>
           <p>
-            <a href="tel:+46734444244" class="underline decoration-[#8F9779]/50 underline-offset-2 hover:text-[#8F9779] hover:decoration-[#8F9779] transition-colors">0734444244</a>
+            <a href="tel:+46734444244" class="underline decoration-[#c8a96e]/55 underline-offset-2 hover:text-[#c8a96e] hover:decoration-[#c8a96e] transition-colors">0734444244</a>
           </p>
           <p>
-            <a href="mailto:hej@yogastudion.com" class="underline decoration-[#8F9779]/50 underline-offset-2 hover:text-[#8F9779] hover:decoration-[#8F9779] transition-colors">hej@yogastudion.com</a>
+            <a href="mailto:hej@yogastudion.com" class="underline decoration-[#c8a96e]/55 underline-offset-2 hover:text-[#c8a96e] hover:decoration-[#c8a96e] transition-colors">hej@yogastudion.com</a>
           </p>
         </div>
       </div>
     </section>
   </div>
-</BokaLayout>
+</Layout>
