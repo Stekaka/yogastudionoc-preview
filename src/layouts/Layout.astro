@@ -12,6 +12,9 @@ const {
   title = "Yogastudion – En oas för harmoni och personlig utveckling.",
   description = "Yogastudion erbjuder Hatha, Vinyasa och Yin Yoga i hjärtat av Göteborg. Boka din nästa klass i en lugn, mjuk och minimalistisk miljö.",
 } = Astro.props as Props;
+
+const baseUrl = new URL(Astro.url).origin;
+const logoImage = `${baseUrl}/images/recept/YogastudionLogo2.png`;
 ---
 
 <!DOCTYPE html>
@@ -30,6 +33,10 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="sv_SE" />
+    <meta property="og:image" content={logoImage} />
+
+    <link rel="icon" href="/images/recept/YogastudionLogo2.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/images/recept/YogastudionLogo2.png" />
 
     <SEO
       businessName="Yogastudion"
