@@ -1,0 +1,182 @@
+/* Theme Presets */
+
+/* 1. Klassisk Navy Corporate (Default) */
+[data-theme="navy"],
+:root {
+  --color-primary-500: #0B1F3B;
+  --color-primary-600: #1F3A5F;
+  --color-accent: #C9A227;
+  --color-background: #F4F6F8;
+}
+
+/* 2. Skandinavisk Skogsgrön */
+[data-theme="forest"] {
+  --color-primary-500: #1F3D2B;
+  --color-primary-600: #3A5F4B;
+  --color-accent: #B08D57;
+  --color-background: #F5F7F6;
+}
+
+/* 3. Modern Graphite */
+[data-theme="graphite"] {
+  --color-primary-500: #2C2F33;
+  --color-primary-600: #4A4E52;
+  --color-accent: #E67E22;
+  --color-background: #F2F3F5;
+}
+
+/* 4. Blågrå Professional */
+[data-theme="bluegray"] {
+  --color-primary-500: #2C3E50;
+  --color-primary-600: #34495E;
+  --color-accent: #3498DB;
+  --color-background: #ECF0F1;
+}
+
+/* 5. Petroleum Blue */
+[data-theme="petrol"] {
+  --color-primary-500: #004D5C;
+  --color-primary-600: #006B7D;
+  --color-accent: #F39C12;
+  --color-background: #EEF5F7;
+}
+
+/* 6. Burgundy Wine */
+[data-theme="wine"] {
+  --color-primary-500: #5C2028;
+  --color-primary-600: #7D3741;
+  --color-accent: #D4AF37;
+  --color-background: #F7F3F4;
+}
+
+/* 7. Industrial Steel */
+[data-theme="industrial"] {
+  --color-primary-500: #3C444A;
+  --color-primary-600: #556068;
+  --color-accent: #FF6B35;
+  --color-background: #F0F2F4;
+}
+
+/* 8. Olivgrön Earth */
+[data-theme="olive"] {
+  --color-primary-500: #3D4E2C;
+  --color-primary-600: #5A6E47;
+  --color-accent: #D2B48C;
+  --color-background: #F6F7F4;
+}
+
+/* 9. Charcoal Executive */
+[data-theme="charcoal"] {
+  --color-primary-500: #1A1D23;
+  --color-primary-600: #2D3339;
+  --color-accent: #4A90E2;
+  --color-background: #F4F5F6;
+}
+
+/* 10. Chocolate Brown */
+[data-theme="brown"] {
+  --color-primary-500: #4A3728;
+  --color-primary-600: #6B5344;
+  --color-accent: #E8B86D;
+  --color-background: #F7F5F3;
+}
+
+/* 11. Slate Professional */
+[data-theme="slate"] {
+  --color-primary-500: #475569;
+  --color-primary-600: #334155;
+  --color-accent: #0EA5E9;
+  --color-background: #F8FAFC;
+}
+
+/* 12. Dark Theme */
+[data-theme="dark"] {
+  --color-background: #0f172a;
+  --color-background-alt: #1e293b;
+  --color-surface: #1e293b;
+  --color-border: #334155;
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #94a3b8;
+
+  --color-primary: #3b82f6;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #fbbf24;
+  --color-accent-contrast: #000000;
+}
+
+/* 13. Corporate Blue - Professional & Clean */
+[data-theme="corporate"] {
+  --color-primary: #1e40af;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #0891b2;
+  --color-accent-contrast: #ffffff;
+  --color-background: #f8fafc;
+  --color-background-alt: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+}
+
+/* 14. Creative Purple - Modern & Vibrant */
+[data-theme="creative"] {
+  --color-primary: #7c3aed;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #ec4899;
+  --color-accent-contrast: #ffffff;
+  --color-background: #faf5ff;
+  --color-background-alt: #f3e8ff;
+  --color-surface: #ffffff;
+  --color-border: #e9d5ff;
+}
+
+/* 15. Startup Orange - Energetic & Bold */
+[data-theme="startup"] {
+  --color-primary: #ea580c;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #facc15;
+  --color-accent-contrast: #000000;
+  --color-background: #fffbeb;
+  --color-background-alt: #fef3c7;
+  --color-surface: #ffffff;
+  --color-border: #fde68a;
+}
+
+/* 16. Ocean Teal - Fresh & Trustworthy */
+[data-theme="ocean"] {
+  --color-primary: #0d9488;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #06b6d4;
+  --color-accent-contrast: #ffffff;
+  --color-background: #f0fdfa;
+  --color-background-alt: #ccfbf1;
+  --color-surface: #ffffff;
+  --color-border: #99f6e4;
+}
+
+/* 17. Minimal Mono - Clean & Sophisticated */
+[data-theme="minimal"] {
+  --color-primary: #18181b;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #71717a;
+  --color-accent-contrast: #ffffff;
+  --color-background: #fafafa;
+  --color-background-alt: #f4f4f5;
+  --color-surface: #ffffff;
+  --color-border: #e4e4e7;
+}
+
+/* 18. Yoga Zen - Calm & Harmonious */
+[data-theme="yoga"] {
+  --color-primary: #8b5cf6; /* Lila */
+  --color-primary-600: #7c3aed;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #f472b6; /* Rosa */
+  --color-accent-contrast: #ffffff;
+  --color-background: #fdf2f8; /* Mycket ljus rosa/lila vit */
+  --color-background-alt: #f5f3ff; /* Ljus lila */
+  --color-surface: #ffffff;
+  --color-border: #ddd6fe;
+  --color-text-primary: #4c1d95; /* Mörklila text */
+  --color-text-secondary: #7c3aed;
+}

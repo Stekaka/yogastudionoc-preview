@@ -1,0 +1,43 @@
+---
+interface Props {
+  businessName: string;
+  city: string;
+  streetAddress: string;
+  postalCode: string;
+  telephone: string;
+  url: string;
+}
+
+const { businessName, city, streetAddress, postalCode, telephone, url } = Astro.props as Props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: businessName,
+  image: `${url}/images/studio.jpg`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress,
+    addressLocality: city,
+    postalCode,
+    addressCountry: "SE",
+  },
+  telephone,
+  url,
+  priceRange: "$$",
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 57.7089,
+    longitude: 11.9746,
+  },
+  sameAs: [
+    "https://www.instagram.com/yogastudion",
+    "https://www.facebook.com/yogastudion",
+  ],
+};
+---
+
+<script type="application/ld+json">
+  {JSON.stringify(schema)}
+</script>
+

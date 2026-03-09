@@ -1,0 +1,74 @@
+---
+interface Props {
+  categories: { id: string; label: string }[];
+  activeId?: string;
+}
+
+const { categories, activeId = "alla" } = Astro.props;
+---
+
+<nav
+  class="courses-filter-header sticky top-0 z-30 border-b border-black/5 bg-[#FAFAF9]/95 backdrop-blur-md"
+  aria-label="Filtrera kurser"
+>
+  <div class="mx-auto max-w-4xl px-4 py-4 relative">
+    <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 relative">
+      {categories.map((cat) => (
+        <a
+          href={`#${cat.id === "alla" ? "courses" : cat.id}`}
+          class="filter-link relative py-2 text-sm font-medium text-black/70 transition-colors hover:text-black"
+          data-category={cat.id}
+          aria-current={cat.id === activeId ? "true" : undefined}
+        >
+          {cat.label}
+        </a>
+      ))}
+      <span
+        class="filter-underline absolute left-0 bottom-0 h-px bg-black transition-all duration-300 ease-out"
+        aria-hidden="true"
+      ></span>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function initFilterHeader() {
+    const nav = document.querySelector(".courses-filter-header");
+    if (!nav) return;
+
+    const links = nav.querySelectorAll(".filter-link");
+    const underline = nav.querySelector(".filter-underline");
+    if (!links.length || !underline) return;
+
+    function setActive(target) {
+      links.forEach((l) => l.setAttribute("aria-current", "false"));
+      target.setAttribute("aria-current", "true");
+      const container = underline.parentElement;
+      if (!container) return;
+      const cr = container.getBoundingClientRect();
+      const tr = target.getBoundingClientRect();
+      underline.style.left = `${tr.left - cr.left}px`;
+      underline.style.width = `${tr.width}px`;
+    }
+
+    const active = nav.querySelector(".filter-link[aria-current='true']");
+    if (active) setActive(active);
+    else if (links[0]) setActive(links[0]);
+
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const category = link.getAttribute("data-category");
+        setActive(link);
+        const section = category === "alla" ? document.getElementById("courses") : document.getElementById(`section-${category}`);
+        section?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.querySelectorAll(".course-section").forEach((el) => {
+          el.style.display = category === "alla" ? "" : (el.getAttribute("data-category") === category ? "" : "none");
+        });
+      });
+    });
+  }
+
+  initFilterHeader();
+  document.addEventListener("astro:page-load", initFilterHeader);
+</script>

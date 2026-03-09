@@ -1,0 +1,77 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { RECIPES } from "../../data/recipes";
+
+const title = "Recept – Yogastudion Göteborg";
+const description =
+  "Näringsrika recept från Yogastudion: yogisk mat, grytor och drycker som lättsmält ger energi och styrka. Perfekt komplement till din yoga i Göteborg.";
+---
+
+<Layout title={title} description={description}>
+  <main class="mx-auto w-full max-w-6xl px-4 py-10 sm:py-14">
+    <header class="mb-12 sm:mb-16">
+      <p class="text-sm text-[#2D2D2D]/60 uppercase tracking-wider mb-2">Yogastudion · Göteborg</p>
+      <h1 class="font-serif text-3xl sm:text-4xl text-[#2D2D2D]">
+        Recept
+      </h1>
+      <p class="mt-4 text-[#2D2D2D]/80 max-w-xl">
+        Lättsmält, näringsrik mat som ger kraft och välmående – inspirerad av yogisk kost.
+      </p>
+    </header>
+
+    <section aria-labelledby="recept-heading" class="space-y-8">
+      <h2 id="recept-heading" class="sr-only">Alla recept</h2>
+      <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {
+          RECIPES.map((recipe) => {
+            const dateFormatted = new Date(recipe.date).toLocaleDateString("sv-SE", {
+              month: "long",
+              year: "numeric",
+            });
+            return (
+              <li>
+                <article class="h-full rounded-2xl border border-[#4A5D4E]/15 bg-white/50 overflow-hidden transition hover:border-[#4A5D4E]/25 flex flex-col">
+                  {recipe.image && (
+                    <a href={`/recept/${recipe.slug}`} class="block aspect-[4/3] overflow-hidden bg-[#2D2D2D]/5">
+                      <img
+                        src={recipe.image}
+                        alt=""
+                        class="h-full w-full object-cover transition duration-300 hover:scale-[1.02]"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                      />
+                    </a>
+                  )}
+                  <div class="p-6 flex flex-col flex-1">
+                    {recipe.category && (
+                      <p class="text-xs font-medium uppercase tracking-[0.16em] text-[#4A5D4E]">
+                        {recipe.category}
+                      </p>
+                    )}
+                    <h3 class="mt-2 font-serif text-lg text-[#2D2D2D]">
+                      {recipe.title}
+                    </h3>
+                    <p class="mt-2 text-xs text-[#2D2D2D]/60">
+                      {recipe.author} · {dateFormatted}
+                    </p>
+                    <p class="mt-3 text-sm leading-relaxed text-[#2D2D2D]/80 flex-1">
+                      {recipe.excerpt}
+                    </p>
+                    <a
+                      href={`/recept/${recipe.slug}`}
+                      class="mt-4 inline-flex items-center text-sm font-medium text-[#4A5D4E] hover:text-[#2D2D2D]"
+                    >
+                      Se recept
+                      <span aria-hidden="true" class="ml-1">→</span>
+                    </a>
+                  </div>
+                </article>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>

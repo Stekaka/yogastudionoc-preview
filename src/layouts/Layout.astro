@@ -1,0 +1,127 @@
+---
+import { ViewTransitions } from "astro:transitions";
+import SEO from "../components/SEO.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Yogastudion – En oas för harmoni och personlig utveckling.",
+  description = "Yogastudion erbjuder Hatha, Vinyasa och Yin Yoga i hjärtat av Göteborg. Boka din nästa klass i en lugn, mjuk och minimalistisk miljö.",
+} = Astro.props as Props;
+---
+
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="sv_SE" />
+
+    <SEO
+      businessName="Yogastudion"
+      city="Göteborg"
+      streetAddress="Vegagatan 12, Göteborg"
+      postalCode="411 00"
+      telephone="+46-31-000-00-00"
+      url="https://yogastudion.com"
+    />
+    <ViewTransitions />
+  </head>
+  <body class="bg-[#F5F2ED] text-[#2D2D2D] antialiased font-sans">
+    <div class="min-h-screen flex flex-col">
+      <header class="w-full sticky top-0 z-40 bg-[#F5F2ED]/10 backdrop-blur-lg shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
+        <div class="mx-auto w-full max-w-6xl px-4 py-4 flex items-center justify-between">
+          <a
+            href="/"
+            class="flex items-center gap-2 group"
+            aria-label="Till startsidan"
+          >
+            <div class="h-11 w-11 rounded-full overflow-hidden bg-transparent flex items-center justify-center">
+              <img
+                src="/images/recept/YogastudionLogo2.png"
+                alt="Yogastudion logotyp"
+                class="h-full w-full object-contain transition-transform duration-200 group-hover:scale-105"
+                loading="eager"
+                width="44"
+                height="44"
+              />
+            </div>
+            <span class="font-serif text-lg tracking-wide text-[#2D2D2D] group-hover:text-[#c8a96e] transition-colors">
+              Yogastudion
+            </span>
+          </a>
+          <nav class="hidden md:flex items-center gap-8 text-base font-medium tracking-wide">
+            <a href="/kurser" class="text-[#2D2D2D] hover:text-[#c8a96e] transition-colors">
+              Kurser
+            </a>
+            <a href="/om-oss" class="text-[#2D2D2D] hover:text-[#c8a96e] transition-colors">
+              Om oss
+            </a>
+            <a href="/lar-dig-mer" class="text-[#2D2D2D] hover:text-[#c8a96e] transition-colors">
+              Lär dig mer
+            </a>
+            <a href="/recept" class="text-[#2D2D2D] hover:text-[#c8a96e] transition-colors">
+              Recept
+            </a>
+            <a href="/boka" class="text-[#2D2D2D] hover:text-[#c8a96e] transition-colors">
+              Boka
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="flex-1">
+        <slot />
+      </main>
+
+      <footer class="border-t border-black/5 mt-16">
+        <div class="mx-auto w-full max-w-6xl px-4 py-8 text-sm text-[#2D2D2D]/70 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <a href="/" class="flex items-center gap-4 group w-fit">
+            <img
+              src="/images/recept/YogastudionLogo2.png"
+              alt=""
+              class="h-20 w-20 md:h-28 md:w-28 shrink-0 object-contain transition-colors"
+              width="80"
+              height="80"
+              loading="lazy"
+            />
+            <div>
+              <p class="font-serif text-xl md:text-2xl text-[#2D2D2D]/90 group-hover:text-[#c8a96e] transition-colors">Yogastudion</p>
+              <p class="text-sm md:text-base">Yoga i Göteborg</p>
+            </div>
+          </a>
+          <div class="space-y-1">
+            <p>Vegagatan 16, 413 09 Göteborg</p>
+            <p>Tel: <a href="tel:+46734444244" class="underline hover:text-[#c8a96e]">0734444244</a> · E-post: <a href="mailto:hej@yogastudion.com" class="underline hover:text-[#c8a96e]">hej@yogastudion.com</a></p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/components/ui-loader.js"></script>
+    <script>
+      function clearKurserNavState() {
+        if (!window.location.pathname.startsWith("/kurser")) {
+          document.body.classList.remove("ys-header-extended", "ys-glass-visible", "ys-detaching");
+          document.body.style.removeProperty("--ys-sticky-height");
+          document.body.style.removeProperty("--ys-nav-height");
+        }
+      }
+      clearKurserNavState();
+      document.addEventListener("astro:page-load", clearKurserNavState);
+    </script>
+  </body>
+</html>
+

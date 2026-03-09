@@ -1,0 +1,952 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WeeklySchedule from "../components/WeeklySchedule";
+import { CATEGORIES, getCoursesByCategory, ALL_COURSES } from "../data/courses";
+
+const pageTitle = "Klasser & kurser – Yogastudion Göteborg | Kundaliniyoga, Yinyoga, Medicinsk Yoga";
+const pageDescription =
+  "Utforska Yogastudions klasser och yogakurser på Vegagatan 16 i Linné, Göteborg. Kundaliniyoga, Gravidyoga, Yinyoga, Yin Flow, Medicinsk Yoga, Gongbad, Iyengaryoga, YogaNidra, Dansmeditation, Yoga för män och musiker. Föranmälan krävs – boka drop-in eller kurs.";
+
+const coursesByCategory = getCoursesByCategory();
+const visibleCategories = CATEGORIES.filter((c) => c.id !== "alla");
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Yogakurser och klasser på Yogastudion Göteborg",
+  description: pageDescription,
+  numberOfItems: ALL_COURSES.length,
+  itemListElement: ALL_COURSES.map((course, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Course",
+      name: course.title,
+      description: course.shortDescription,
+      provider: { "@type": "Organization", name: "Yogastudion", address: { "@type": "PostalAddress", streetAddress: "Vegagatan 16", addressLocality: "Göteborg", postalCode: "413 09" } },
+    },
+  })),
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(courseSchema)} />
+  <main class="ys-main">
+
+    <!-- ─── HERO ─────────────────────────────────────────────── -->
+    <section id="courses" class="ys-hero" aria-labelledby="courses-hero-heading">
+      <span class="ys-eyebrow">Göteborg · Linné</span>
+      <h1 id="courses-hero-heading" class="ys-h1">
+        Klasser<br /><em>& kurser</em>
+      </h1>
+      <p class="ys-hero-body">
+        Kundaliniyoga, yinyoga, medicinsk yoga och specialklasser –
+        i en liten, personlig studio.
+      </p>
+      <a href="#boka" class="ys-cta">Boka din plats</a>
+    </section>
+
+    <!-- ─── STICKY NAV ────────────────────────────────────────── -->
+    <nav class="ys-nav" aria-label="Filtrera klasser" id="filter-nav">
+      <div class="ys-nav-inner">
+        <div class="ys-pills" id="filter-pills">
+          <button
+            class="ys-pill ys-pill--active"
+            data-target="courses"
+            type="button"
+          >Alla</button>
+          {visibleCategories.map((cat) => (
+            <button
+              class="ys-pill"
+              data-target={`section-${cat.id}`}
+              type="button"
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </nav>
+
+    <!-- ─── COURSE SECTIONS ───────────────────────────────────── -->
+    <div class="ys-sections">
+      {visibleCategories.map((cat, catIdx) => {
+        const courses = coursesByCategory.get(cat.id) ?? [];
+        return (
+          <section
+            id={`section-${cat.id}`}
+            class="ys-category"
+            aria-labelledby={`heading-${cat.id}`}
+          >
+            <!-- Category label -->
+            <div class="ys-category-header">
+              <div class="ys-category-number">{String(catIdx + 1).padStart(2, "0")}</div>
+              <h2 id={`heading-${cat.id}`} class="ys-category-title">{cat.label}</h2>
+              {cat.seoText && (
+                <p class="ys-category-seo">{cat.seoText}</p>
+              )}
+            </div>
+
+            <!-- Course rows -->
+            <ul class="ys-course-list" role="list">
+              {courses.map((course, i) => (
+                <li class="ys-course-item" style={`--i: ${i}`} data-course-id={course.id}>
+                  <div class="ys-course-row" tabindex={0} role="button" aria-expanded="false" aria-controls={`course-expanded-${course.id}`} id={`course-trigger-${course.id}`} data-expanded="false">
+                    <div class="ys-course-thumb-wrap">
+                      <img
+                        src={course.imageUrl}
+                        alt=""
+                        class="ys-course-thumb"
+                        width="512"
+                        height="512"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <div class="ys-course-row-right">
+                      <div class="ys-course-content">
+                        <p class="ys-course-title">{course.title}</p>
+                        {course.level && (
+                          <p class="ys-course-level">{course.level}</p>
+                        )}
+                        {course.shortDescription && (
+                          <p class="ys-course-desc">{course.shortDescription}</p>
+                        )}
+                      </div>
+                      <div class="ys-course-action">
+                        <span class="ys-course-action-label">Läs mer</span>
+                        <svg class="ys-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                          <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ys-course-expanded" id={`course-expanded-${course.id}`} aria-hidden="true">
+                    <div class="ys-course-expanded-inner">
+                      <div class="ys-course-expanded-body">
+                        <div class="ys-course-expanded-desc-wrap">
+                          {course.longDescription || course.shortDescription}
+                        </div>
+                        {course.suggestedTeacher && (
+                          <p class="ys-course-expanded-teacher">Rekommenderad lärare: {course.suggestedTeacher}</p>
+                        )}
+                        <a href="#boka" class="ys-course-boka-cta">Boka din plats</a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+    </div>
+
+    <!-- ─── BOOKING ────────────────────────────────────────────── -->
+    <section id="boka" class="ys-booking" aria-labelledby="booking-heading">
+      <div class="ys-booking-header">
+        <span class="ys-eyebrow">Nästa steg</span>
+        <h2 id="booking-heading" class="ys-h2">Boka din plats</h2>
+        <p class="ys-booking-body">
+          Välj en klass i schemat nedan och skicka en förfrågan –
+          vi återkommer med bekräftelse.
+        </p>
+      </div>
+      <div class="ys-schedule-wrap">
+        <WeeklySchedule client:load transparentBackground />
+      </div>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  /* ── Tokens ─────────────────────────────────────── */
+  :root {
+    --cream:   #FAFAF7;
+    --ink:     #1a1814;
+    --muted:   #7a7568;
+    --border:  #e8e4dc;
+    --accent:  #c8a96e;   /* warm gold */
+    --pill-bg: #f0ece4;
+    --pill-active-bg: #1a1814;
+    --pill-active-fg: #FAFAF7;
+    --serif:   'Cormorant Garamond', Georgia, serif;
+    --sans:    'DM Sans', system-ui, sans-serif;
+  }
+
+  /* ── Google Fonts ─────────────────────────────── */
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+  /* ── Base ─────────────────────────────────────── */
+  .ys-main {
+    min-height: 100vh;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+  }
+
+  /* ── Hero ─────────────────────────────────────── */
+  .ys-hero {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 7rem 2rem 5rem;
+    display: grid;
+    gap: 0;
+  }
+
+  @media (min-width: 640px) {
+    .ys-hero { padding: 9rem 3rem 6rem; }
+  }
+
+  .ys-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.625rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .ys-h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0 0 1.75rem;
+  }
+
+  .ys-h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .ys-hero-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 36ch;
+    margin: 0 0 2.5rem;
+  }
+
+  .ys-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 0.125rem;
+    transition: color 0.2s, border-color 0.2s;
+    width: fit-content;
+  }
+
+  .ys-cta:hover {
+    color: var(--accent);
+  }
+
+  /* ── Sticky nav: solid bakgrund default; när den "fastnat" = exakt samma färg/glas som header ── */
+  .ys-nav {
+    position: sticky;
+    top: 4.25rem;
+    z-index: 30;
+    background: var(--cream);
+    border-bottom: 1px solid transparent;
+    box-shadow: none;
+    /* Kortare transition så bakgrunden inte ligger kvar för länge när den släpper */
+    transition: background 0.32s ease-out,
+                box-shadow 0.32s ease-out,
+                border-color 0.32s ease-out,
+                backdrop-filter 0.32s ease-out,
+                -webkit-backdrop-filter 0.32s ease-out;
+  }
+
+  /* Exakt samma som header: #F5F2ED, mycket transparent + blur, kant, skugga */
+  .ys-nav.ys-nav--stuck {
+    background: rgba(245, 242, 237, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .ys-nav-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0.75rem 2rem 0 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .ys-nav-inner { padding: 0.75rem 3rem 0 3rem; }
+  }
+
+  .ys-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    padding: 0.625rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+
+  @media (min-width: 640px) {
+    .ys-pills {
+      flex-wrap: nowrap;
+    }
+  }
+
+  .ys-pills::-webkit-scrollbar { display: none; }
+
+  .ys-pill {
+    flex-shrink: 0;
+    padding: 0.375rem 1rem;
+    border-radius: 100px;
+    background: var(--pill-bg);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .ys-pill:hover {
+    background: #e4dfd5;
+    color: var(--ink);
+  }
+
+  .ys-pill--active {
+    background: var(--pill-active-bg);
+    color: var(--pill-active-fg);
+  }
+
+  .ys-pill--active:hover {
+    background: #2e2a24;
+    color: var(--pill-active-fg);
+  }
+
+  /* ── Sections wrapper ─────────────────────────── */
+  .ys-sections {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .ys-sections { padding: 0 3rem; }
+  }
+
+  /* ── Category section ─────────────────────────── */
+  .ys-category {
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+  }
+
+  .ys-category + .ys-category {
+    border-top: 1px solid var(--border);
+  }
+
+  .ys-category-header {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 1.25rem;
+    row-gap: 0.5rem;
+    margin-bottom: 2rem;
+    align-items: start;
+  }
+
+  .ys-category-number {
+    font-family: var(--sans);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    padding-top: 0.5rem;
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .ys-category-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0;
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .ys-category-seo {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0;
+    grid-row: 2;
+    grid-column: 2;
+    max-width: 56ch;
+  }
+
+  /* ── Course list ──────────────────────────────── */
+  .ys-course-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .ys-course-item {
+    opacity: 0;
+    animation: fadeSlideUp 0.45s ease forwards;
+    animation-delay: calc(var(--i) * 60ms + 100ms);
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .ys-course-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.375rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .ys-course-link::before {
+    content: '';
+    position: absolute;
+    inset: 0 -1rem;
+    border-radius: 6px;
+    background: transparent;
+    transition: background 0.18s;
+    z-index: -1;
+  }
+
+  .ys-course-link:hover::before {
+    background: rgba(200, 169, 110, 0.07);
+  }
+
+  /* Clickable row (reuses link-like styling) */
+  .ys-course-row {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.125rem 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    color: inherit;
+    text-align: left;
+    width: 100%;
+    border: none;
+    background: none;
+    font: inherit;
+    position: relative;
+    border-radius: 2px;
+    transition: background 0.15s;
+  }
+
+  .ys-course-row-right {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .ys-course-row::before {
+    content: '';
+    position: absolute;
+    inset: 0 -1rem;
+    border-radius: 6px;
+    background: transparent;
+    transition: background 0.18s;
+    z-index: -1;
+  }
+
+  .ys-course-row:hover::before,
+  .ys-course-item.is-expanded .ys-course-row::before {
+    background: rgba(200, 169, 110, 0.07);
+  }
+
+  .ys-course-thumb-wrap {
+    flex-shrink: 0;
+    width: 6rem;
+    height: 6rem;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    background: transparent;
+    transition: width 0.35s ease-out, height 0.35s ease-out;
+    will-change: width, height;
+    /* Tillräckligt stor miniatyr så detaljer syns; samma storlek för alla kurser */
+  }
+
+  .ys-course-item.is-expanded .ys-course-thumb-wrap {
+    width: 18rem;
+    height: 14rem;
+    aspect-ratio: 18 / 14;
+    border-radius: 12px;
+  }
+
+  /* Skarp, icke-grynig nedskalning: mjuk interpolation (ingen crisp-edges) */
+  .ys-course-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    image-rendering: auto;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .ys-course-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ys-course-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.25rem, 3vw, 1.625rem);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+  }
+
+  .ys-course-level {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.3rem;
+  }
+
+  .ys-course-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  .ys-course-action {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: color 0.18s, gap 0.18s;
+  }
+
+  .ys-course-row:hover .ys-course-action,
+  .ys-course-item.is-expanded .ys-course-action {
+    color: var(--ink);
+    gap: 0.75rem;
+  }
+
+  .ys-course-action-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .ys-course-action-label { display: block; }
+  }
+
+  .ys-chevron {
+    transition: transform 0.25s ease;
+  }
+
+  .ys-course-item.is-expanded .ys-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Expanded content – desktop: två kolumner (bild vänster, text höger), fix höjd så scroll fungerar */
+  .ys-course-expanded {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease-out;
+  }
+
+  .ys-course-item.is-expanded .ys-course-expanded {
+    grid-template-rows: 1fr;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .ys-course-item.is-expanded {
+      display: grid;
+      grid-template-columns: 18rem 1fr;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 0 1.5rem;
+      align-items: start;
+      max-height: calc(100vh - 6rem);
+    }
+
+    .ys-course-item.is-expanded .ys-course-row {
+      display: contents;
+    }
+
+    .ys-course-item.is-expanded .ys-course-thumb-wrap {
+      grid-column: 1;
+      grid-row: 1 / -1;
+      position: sticky;
+      top: 6rem;
+    }
+
+    .ys-course-item.is-expanded .ys-course-row-right {
+      grid-column: 2;
+      grid-row: 1;
+      flex: none;
+      padding: 0.25rem 0 0.5rem;
+    }
+
+    .ys-course-item.is-expanded .ys-course-expanded {
+      grid-column: 2;
+      grid-row: 2;
+      min-height: 0;
+      max-height: 100%;
+      overflow: hidden;
+    }
+
+    .ys-course-item.is-expanded .ys-course-expanded-inner {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      min-height: 0;
+      height: 100%;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .ys-course-item.is-expanded .ys-course-expanded {
+      height: calc(100dvh - 7rem);
+      max-height: calc(100dvh - 7rem);
+      overflow: hidden;
+    }
+
+    .ys-course-item.is-expanded .ys-course-expanded-inner {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      min-height: 0;
+      height: 100%;
+    }
+  }
+
+  .ys-course-expanded-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .ys-course-expanded-body {
+    padding: 1rem 0 1.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.5rem;
+  }
+
+  .ys-course-expanded-desc-wrap {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin: 0 0 1rem;
+    max-width: 100%;
+    white-space: pre-line;
+  }
+
+  .ys-course-expanded-teacher {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  .ys-course-boka-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 0.2rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .ys-course-boka-cta:hover {
+    color: var(--accent);
+  }
+
+  /* Mobil: expanderad bild samma proportioner som desktop (18/14) */
+  @media (max-width: 639px) {
+    .ys-course-item.is-expanded .ys-course-thumb-wrap {
+      width: min(18rem, 85vw);
+      height: min(14rem, 70vmin);
+      aspect-ratio: 18 / 14;
+    }
+  }
+
+  /* ── Booking section ──────────────────────────── */
+  .ys-booking {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 6rem 2rem 6rem;
+    border-top: 1px solid var(--border);
+    margin-top: 5rem;
+  }
+
+  @media (min-width: 640px) {
+    .ys-booking { padding: 7rem 3rem 7rem; }
+  }
+
+  .ys-booking-header {
+    margin-bottom: 3rem;
+  }
+
+  .ys-h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0.75rem 0 1rem;
+  }
+
+  .ys-booking-body {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 42ch;
+    margin: 0;
+  }
+
+  .ys-schedule-wrap {
+    position: relative;
+    padding: 2rem 0.5rem 3rem;
+    margin: 0 -0.5rem;
+    overflow: visible;
+  }
+
+  /* Tvinga transparent bakgrund på schemat så vår fade syns */
+  .ys-schedule-wrap > section {
+    background: transparent !important;
+  }
+
+  /* Bakgrundsblock med mjuka kanter – innanför wrappern */
+  .ys-schedule-wrap::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    inset: -3rem 0;
+    background: #F5F2ED;
+  }
+
+  /* Overlay som fadar kanterna: transparent i mitten → sidans färg vid kanten */
+  .ys-schedule-wrap::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -3rem 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 70% 75% at 50% 50%,
+      transparent 0%,
+      transparent 40%,
+      rgba(250, 250, 247, 0.5) 65%,
+      rgba(250, 250, 247, 0.9) 85%,
+      var(--cream) 100%
+    );
+  }
+</style>
+
+<script>
+  function initFilter() {
+    const pills = document.querySelectorAll<HTMLButtonElement>(".ys-pill");
+
+    // Klick på pill: aktivera och scrolla mjukt till sektionen
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        pills.forEach((p) => p.classList.remove("ys-pill--active"));
+        pill.classList.add("ys-pill--active");
+
+        const targetId = pill.dataset.target;
+        if (!targetId) return;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        const nav = document.getElementById("filter-nav");
+        const navHeight = (nav as HTMLElement | null)?.offsetHeight ?? 60;
+        const top =
+          target.getBoundingClientRect().top + window.scrollY - navHeight - 24;
+
+        window.scrollTo({ top, behavior: "smooth" });
+      });
+    });
+
+    // Highlight pill on scroll
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>(".ys-category, #courses")
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            pills.forEach((p) => {
+              const matches =
+                (id === "courses" && p.dataset.target === "courses") ||
+                p.dataset.target === id;
+              p.classList.toggle("ys-pill--active", matches);
+            });
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px" }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+
+    // När nav har "fastnat" under header: samma bakgrund som header. Släpp lite tidigare så bakgrunden inte ligger kvar.
+    const nav = document.getElementById("filter-nav");
+    const headerEl = document.querySelector<HTMLElement>("header");
+    const stickyTopPx = 4.25 * 16;
+    const stuckMaxPx = stickyTopPx + 2;   // fastnar när nav nått denna
+    const releaseMinPx = stickyTopPx + 8; // släpper när nav är minst så här (tidigare = snabbare fade-out)
+    let ticking = false;
+    let lastStuck: boolean | null = null;
+    let glassVisibleTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    function updateStuck() {
+      if (!nav) return;
+      const top = nav.getBoundingClientRect().top;
+      const stuck = lastStuck === true ? top <= releaseMinPx : top <= stuckMaxPx;
+      if (lastStuck !== stuck) {
+        lastStuck = stuck;
+        nav.classList.toggle("ys-nav--stuck", stuck);
+        if (stuck) {
+          document.body.classList.add("ys-header-extended");
+          const headerHeight = headerEl?.offsetHeight ?? 0;
+          const navHeight = nav.offsetHeight ?? 0;
+          document.body.style.setProperty("--ys-sticky-height", `${headerHeight + navHeight}px`);
+          if (glassVisibleTimeout) clearTimeout(glassVisibleTimeout);
+          glassVisibleTimeout = setTimeout(() => {
+            document.body.classList.add("ys-glass-visible");
+            glassVisibleTimeout = null;
+          }, 20);
+        } else {
+          if (glassVisibleTimeout) {
+            clearTimeout(glassVisibleTimeout);
+            glassVisibleTimeout = null;
+          }
+          document.body.classList.remove("ys-glass-visible", "ys-header-extended");
+          document.body.style.removeProperty("--ys-sticky-height");
+        }
+      }
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateStuck);
+      }
+    }
+
+    updateStuck();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", updateStuck);
+  }
+
+  if (document.readyState !== "loading") {
+    initFilter();
+  } else {
+    document.addEventListener("DOMContentLoaded", initFilter, { once: true });
+  }
+  document.addEventListener("astro:page-load", initFilter);
+</script>
+
+<script>
+  function initCourseExpand() {
+    if (document.body.dataset.ysCourseExpandInit === "1") return;
+    document.body.dataset.ysCourseExpandInit = "1";
+
+    function setExpanded(item, open) {
+      const trigger = item.querySelector(".ys-course-row");
+      const panel = item.querySelector(".ys-course-expanded");
+      item.classList.toggle("is-expanded", open);
+      if (trigger) trigger.setAttribute("aria-expanded", String(open));
+      if (panel) panel.setAttribute("aria-hidden", String(!open));
+    }
+
+    document.addEventListener("click", function (e) {
+      const row = e.target.closest(".ys-course-row");
+      if (!row) return;
+      const link = e.target.closest("a[href='#boka']");
+      if (link) return;
+      const item = row.closest(".ys-course-item");
+      if (!item) return;
+      e.preventDefault();
+      const isOpen = item.classList.contains("is-expanded");
+      setExpanded(item, !isOpen);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const row = e.target.closest(".ys-course-row");
+      if (!row) return;
+      const item = row.closest(".ys-course-item");
+      if (!item) return;
+      e.preventDefault();
+      const isOpen = item.classList.contains("is-expanded");
+      setExpanded(item, !isOpen);
+    });
+
+    document.querySelectorAll(".ys-course-expanded").forEach(function (panel) {
+      panel.setAttribute("aria-hidden", "true");
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCourseExpand);
+  } else {
+    initCourseExpand();
+  }
+  document.addEventListener("astro:page-load", initCourseExpand);
+</script>

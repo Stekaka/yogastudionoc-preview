@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  imageSrc: string;
+}
+
+const { title, subtitle, imageSrc } = Astro.props as Props;
+---
+
+<section
+  class="relative isolate overflow-hidden rounded-[2.25rem] border border-white/25 bg-[#4A5D4E]/10 shadow-[0_28px_90px_rgba(0,0,0,0.18)]"
+  aria-label="Om oss"
+>
+  <div class="absolute inset-0 -z-10">
+    <img
+      src={imageSrc}
+      alt=""
+      class="h-full w-full object-cover"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0E120F]/55 via-[#0E120F]/25 to-transparent" />
+  </div>
+
+  <div class="px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24 text-center">
+    <p class="text-[0.7rem] tracking-[0.32em] uppercase text-white/75">
+      Yogastudion · Göteborg
+    </p>
+    <h1 class="mt-4 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
+      {title}
+    </h1>
+    {subtitle && (
+      <p class="mx-auto mt-4 max-w-2xl text-sm sm:text-base text-white/85 leading-relaxed">
+        {subtitle}
+      </p>
+    )}
+  </div>
+</section>
+

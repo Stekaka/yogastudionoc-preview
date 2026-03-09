@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import WeeklySchedule from "../components/WeeklySchedule";
+---
+
+<Layout>
+  <Hero />
+
+  <WeeklySchedule client:load />
+
+  <section
+    id="studio"
+    class="mx-auto w-full max-w-6xl px-4 pt-16 sm:pt-20 pb-20 sm:pb-24 space-y-10"
+    aria-labelledby="studio-heading"
+  >
+    <div class="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-center">
+      <div class="space-y-5">
+        <h2
+          id="studio-heading"
+          class="font-serif text-2xl sm:text-3xl text-[#2D2D2D]"
+        >
+          En stilla studio i hjärtat av Göteborg
+        </h2>
+        <p class="text-sm sm:text-base text-[#2D2D2D]/80 leading-relaxed max-w-xl">
+          Mjuka naturtoner, generöst utrymme mellan mattorna och små grupper för trygghet och närvaro. Här får du landa utan prestation.
+        </p>
+        <a
+          href="/om-oss"
+          class="inline-flex items-center gap-2 text-sm font-medium text-[#4A5D4E] hover:text-[#2D2D2D] transition-colors"
+        >
+          Läs mer om studion
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="relative">
+        <figure
+          class="aspect-[4/3] w-full overflow-hidden rounded-3xl border border-[#4A5D4E]/20 bg-[#4A5D4E]/5"
+        >
+          <img
+            src="/images/recept/yogastudion-studio.webp"
+            alt="Yogastudion sedd från köket – ljus, mjuk studio med plats mellan mattorna"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+</Layout>
+

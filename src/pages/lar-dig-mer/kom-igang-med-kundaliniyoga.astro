@@ -1,0 +1,149 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getArticleBySlug } from "../../data/articles";
+
+const article = getArticleBySlug("kom-igang-med-kundaliniyoga");
+if (!article) {
+  return Astro.redirect("/lar-dig-mer");
+}
+
+const title = `${article.title} – Yogastudion Göteborg`;
+const description =
+  "Guiden beskriver en enkel Kundaliniyoga-morgonrutin steg för steg: intoning, andning, mjuka rörelser och vila. Råd vid graviditet och menstruation. Perfekt för dig som vill börja med Kundaliniyoga i Göteborg.";
+---
+
+<Layout title={title} description={description}>
+  <main class="mx-auto w-full max-w-3xl px-4 py-10 sm:py-14">
+    <nav aria-label="Brödsmulor" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-2 text-sm text-[#2D2D2D]/70">
+        <li><a href="/" class="hover:text-[#4A5D4E]">Startsida</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/lar-dig-mer" class="hover:text-[#4A5D4E]">Lär dig mer</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-[#2D2D2D]" aria-current="page">{article.title}</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <p class="text-xs font-medium uppercase tracking-[0.16em] text-[#4A5D4E]">
+        {article.category}
+      </p>
+      <h1 class="mt-2 font-serif text-3xl sm:text-4xl text-[#2D2D2D]">
+        {article.title}
+      </h1>
+      <p class="mt-4 text-[#2D2D2D]/80 leading-relaxed">
+        Att börja dagen med ett Kundaliniyogapass är bland det bästa du kan göra för dig själv.
+        Här får du en enkel morgonrutin steg för steg – anpassad för hemma eller som komplement till
+        dina klasser på Yogastudion i Göteborg.
+      </p>
+    </header>
+
+    <div class="article-body prose prose-[#2D2D2D] max-w-none">
+      <section class="rounded-2xl border border-amber-200/60 bg-amber-50/50 p-5 sm:p-6 mb-10">
+        <h2 class="font-serif text-lg text-[#2D2D2D] mt-0">Innan du börjar</h2>
+        <p class="text-[#2D2D2D]/90 text-sm sm:text-base mb-0">
+          Duscha gärna kallt och drick ett glas ljummet vatten – vänta med frukosten till efter passet.
+          <strong class="text-[#2D2D2D]"> OBS:</strong> Gör inte rotlås eller eldandning om du är gravid
+          eller vid menstruation; andas istället långa, djupa andetag.
+        </p>
+      </section>
+
+      <h2 class="font-serif text-xl text-[#2D2D2D] mt-10 mb-4">Morgonpasset steg för steg</h2>
+
+      <ol class="space-y-8 list-none pl-0">
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">1. Ton in dig</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Sitt med korslagda ben i lätt meditationsställning, handflatorna mot varandra i böneposition
+            framför bröstet. Sjung mantrat <strong>Ong Namo Guru Dev Namo</strong> tre gånger.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">2. Eldandning</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Lätt meditationsställning, rak rygg. Armarna upp 60 grader. Eldandning 1–3 minuter:
+            andas in – håll – andas ut – håll. Gör rotlåset. Andas in, slappna av. Vila 1 min.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">3. Ryggflex</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Lätt meditationsställning. Sätt händerna om främre ankeln. Andas in och flexa ryggraden
+            framåt, andas ut och flexa bakåt. Håll huvudet rakt i 1–3 min. Avsluta med rotlås och vila 1 min.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">4. Framåtlut</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Sträck ut benen. Ta tag om tårna eller vristerna. Andas ut och sjunk framåt med sträckt
+            överkropp, andas in och kom upp. Fortsätt upp och ner i 1–3 min. Avsluta med rotlås. Vila 1 min.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">5. Vridning</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Sitt i lätt meditationsställning. Händerna på axlarna, fingrarna fram, tummarna bak.
+            Andas in och vrid överkroppen åt vänster (huvudet följer med), andas ut och vrid åt höger.
+            Fortsätt 1–3 min. Rotlås. Vila 1 min.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">6. På rygg</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Lyft huvud och fötter ca 10 cm ovanför mattan. Sträck armarna längs med kroppen – eller
+            lägg händerna under baken som stöd så att svanken följer mattan. Titta på tårna och eldandas
+            i 1 min. Håll andan kort. Rotlås. Vila 1 min.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">7. Axlar</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Sitt i lätt meditationsställning, händerna på knäna. Andas in och dra upp axlarna, andas ut
+            och släpp ner. Fortsätt 1–3 min. Avsluta med att en sista gång dra upp axlarna, håll, rotlås.
+            Vila 1 min.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">8. Sat Nam</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Sitt på hälarna i klippställning. Knäpp händerna med sträckta pekfingrar och tryck dem mot
+            varandra. Sträck armarna rakt upp. Chanta <strong>Sat</strong> och dra in naveln,
+            <strong> Nam</strong> och släpp ut naveln. Fortsätt 1–3 min. Andas in – håll. Andas ut – håll –
+            rotlås. Vila 1 min.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">9. Vila och avslutning</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Vila på rygg i 5–10 minuter. Gör en meditation. Avsluta passet med tre långa <strong>Sat Nam</strong>.
+          </p>
+        </li>
+      </ol>
+
+      <section class="mt-12 pt-8 border-t border-[#4A5D4E]/15">
+        <p class="text-[#2D2D2D]/70 text-sm">
+          Vill du öva Kundaliniyoga tillsammans med andra? Välkommen till våra klasser på Yogastudion
+          i Göteborg – boka din plats via schemat på sidan <a href="/boka" class="text-[#4A5D4E] hover:underline">Boka</a>.
+        </p>
+      </section>
+    </div>
+
+    <footer class="mt-12 pt-6">
+      <a
+        href="/lar-dig-mer"
+        class="inline-flex items-center text-sm font-medium text-[#4A5D4E] hover:text-[#2D2D2D]"
+      >
+        <span aria-hidden="true" class="mr-2">←</span>
+        Tillbaka till alla artiklar
+      </a>
+    </footer>
+  </main>
+</Layout>

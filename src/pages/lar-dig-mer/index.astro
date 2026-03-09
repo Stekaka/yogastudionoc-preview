@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { ARTICLES } from "../../data/articles";
+
+const title = "Lär dig mer – Yogastudion Göteborg";
+const description =
+  "Artiklar och inspiration om yoga, Kundaliniyoga och närvaro. Yogastudion i Göteborg delar guider och tips för din praktik – börja din morgon med Kundaliniyoga på Vegagatan 16.";
+---
+
+<Layout title={title} description={description}>
+  <main class="mx-auto w-full max-w-6xl px-4 py-10 sm:py-14">
+    <header class="mb-12 sm:mb-16">
+      <p class="text-sm text-[#2D2D2D]/60 uppercase tracking-wider mb-2">Yogastudion · Göteborg</p>
+      <h1 class="font-serif text-3xl sm:text-4xl text-[#2D2D2D]">
+        Lär dig mer
+      </h1>
+      <p class="mt-4 text-[#2D2D2D]/80 max-w-xl">
+        Artiklar, guider och inspiration för din yoga och vardag.
+      </p>
+    </header>
+
+    <section aria-labelledby="artiklar-heading" class="space-y-8">
+      <h2 id="artiklar-heading" class="sr-only">Artiklar</h2>
+      <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {
+          ARTICLES.map((article) => (
+            <li>
+              <article class="h-full rounded-2xl border border-[#4A5D4E]/15 bg-white/50 p-6 transition hover:border-[#4A5D4E]/25">
+                <p class="text-xs font-medium uppercase tracking-[0.16em] text-[#4A5D4E]">
+                  {article.category}
+                </p>
+                <h3 class="mt-2 font-serif text-lg text-[#2D2D2D]">
+                  {article.title}
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-[#2D2D2D]/80">
+                  {article.excerpt}
+                </p>
+                <a
+                  href={`/lar-dig-mer/${article.slug}`}
+                  class="mt-4 inline-flex items-center text-sm font-medium text-[#4A5D4E] hover:text-[#2D2D2D]"
+                >
+                  Läs artikeln
+                  <span aria-hidden="true" class="ml-1">→</span>
+                </a>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>

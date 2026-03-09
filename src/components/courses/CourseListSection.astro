@@ -1,0 +1,40 @@
+---
+import type { Course } from "../../data/courses";
+import CourseRow from "./CourseRow.astro";
+
+interface Props {
+  categoryId: string;
+  categoryLabel: string;
+  seoText: string;
+  courses: Course[];
+}
+
+const { categoryId, categoryLabel, seoText, courses } = Astro.props;
+---
+
+<section
+  class="course-section py-16 sm:py-20"
+  id={`section-${categoryId}`}
+  data-category={categoryId}
+  aria-labelledby={`heading-${categoryId}`}
+>
+  <header class="mb-12 max-w-3xl">
+    <h2
+      id={`heading-${categoryId}`}
+      class="font-serif text-2xl sm:text-3xl text-black tracking-tight"
+    >
+      {categoryLabel}
+    </h2>
+    {seoText && (
+      <p class="mt-4 text-base text-black/70 leading-relaxed max-w-2xl">
+        {seoText}
+      </p>
+    )}
+  </header>
+
+  <div class="divide-y divide-black/5">
+    {courses.map((course, i) => (
+      <CourseRow course={course} index={i} />
+    ))}
+  </div>
+</section>

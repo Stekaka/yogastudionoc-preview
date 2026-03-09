@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  margin: 0;
+  background-color: #F5F2ED;
+}
+
+/* Kurser-sidan: när pills sitter fast = EN glas-layer över båda (inga streck/färgskillnader) */
+body.ys-header-extended::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--ys-sticky-height, 0);
+  z-index: 39;
+  background: rgb(245 242 237 / 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+body.ys-header-extended.ys-glass-visible::before {
+  opacity: 1;
+}
+
+body.ys-header-extended header {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: background 0.4s ease-out;
+}
+
+/* När filterraden sitter under headern: transparens så att ::before glaslagret syns genom båda */
+body.ys-header-extended .ys-nav.ys-nav--stuck {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom-color: transparent !important;
+  box-shadow: none !important;
+  z-index: 40;
+}
+

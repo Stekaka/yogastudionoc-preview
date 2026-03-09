@@ -1,0 +1,131 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getArticleBySlug } from "../../data/articles";
+
+const article = getArticleBySlug("sat-kriya");
+if (!article) {
+  return Astro.redirect("/lar-dig-mer");
+}
+
+const title = `${article.title} – Kundaliniyoga Göteborg | Yogastudion`;
+const description =
+  "Guiden beskriver Sat Kriya steg för steg: intoning, uppvärmning, utförande i klippställning och avslutning. Råd vid graviditet och menstruation. En av Kundaliniyogans mest kraftfulla övningar – starka magmuskler och balans i de lägre chakrana. Yogastudion Göteborg.";
+---
+
+<Layout title={title} description={description}>
+  <main class="mx-auto w-full max-w-3xl px-4 py-10 sm:py-14">
+    <nav aria-label="Brödsmulor" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-2 text-sm text-[#2D2D2D]/70">
+        <li><a href="/" class="hover:text-[#4A5D4E]">Startsida</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/lar-dig-mer" class="hover:text-[#4A5D4E]">Lär dig mer</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-[#2D2D2D]" aria-current="page">{article.title}</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <p class="text-xs font-medium uppercase tracking-[0.16em] text-[#4A5D4E]">
+        {article.category}
+      </p>
+      <h1 class="mt-2 font-serif text-3xl sm:text-4xl text-[#2D2D2D]">
+        {article.title}
+      </h1>
+      <p class="mt-4 text-[#2D2D2D]/80 leading-relaxed">
+        Sat Kriya är en av de mest kraftfulla övningarna i Kundaliniyogan. Den räknas som ett helt pass
+        men görs också tillsammans med andra ställningar i olika pass. Här får du en tydlig guide till
+        utförande, längd och avslutning – anpassad för hemma eller som komplement till dina klasser på
+        Yogastudion i Göteborg.
+      </p>
+    </header>
+
+    <div class="article-body prose prose-[#2D2D2D] max-w-none">
+      <h2 class="font-serif text-xl text-[#2D2D2D] mt-10 mb-4">Sat Kriya steg för steg</h2>
+
+      <ol class="space-y-8 list-none pl-0">
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">1. Ton in dig</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Börja med att tona in – samma intoning som i andra Kundaliniyogapass.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">2. Uppvärmning</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Gör gärna någon uppvärmande övning först, t.ex. ryggflex och framåtsträckning mot raka ben,
+            eller ta ett ben i taget för att mjuka upp.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">3. Sat Kriya – utförande</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Sitt i klippställning med pekfingrarna sammanpressade och de andra fingrarna knäppta.
+            Sträck armarna rakt upp – de ska vara raka och stryka förbi öronen. Slappna av i axlarna
+            så att du undviker obehag.
+          </p>
+          <p class="text-[#2D2D2D]/85 leading-relaxed mt-3">
+            Pumpa med magen i navelområdet: säg <strong>Sat</strong> när du drar in och
+            <strong> Nam</strong> när du slappnar av. Börja med 3 minuter; efter ett tag kan du öka
+            några minuter per vecka upp till 11 minuter. Sat Kriya kan med fördel göras i 40 dagar i sträck.
+          </p>
+          <p class="text-[#2D2D2D]/85 leading-relaxed mt-3">
+            Avsluta med ett rotlås på utandning. Om du är mer erfaren kan du göra det stora låset, också på utandning.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">4. Vila</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Ta en vila efter övningen så att kroppen kan integrera effekten.
+          </p>
+        </li>
+
+        <li class="border-l-2 border-[#4A5D4E]/30 pl-6">
+          <h3 class="font-serif text-lg text-[#2D2D2D] mt-0">5. Ton ut</h3>
+          <p class="text-[#2D2D2D]/85 leading-relaxed">
+            Avsluta med att tona ut, som vanligt i Kundaliniyoga.
+          </p>
+        </li>
+      </ol>
+
+      <section class="rounded-2xl border border-amber-200/60 bg-amber-50/50 p-5 sm:p-6 mt-10 mb-10">
+        <h2 class="font-serif text-lg text-[#2D2D2D] mt-0">Viktigt att veta</h2>
+        <p class="text-[#2D2D2D]/90 text-sm sm:text-base mb-0">
+          <strong class="text-[#2D2D2D]">Pumpa inte med naveln</strong> om du har menstruation eller är gravid.
+          <strong class="text-[#2D2D2D]"> Gör inte rotlåset</strong> heller vid graviditet eller mens.
+          Är du nybörjare rekommenderas att vänta med Sat Kriya tills du fått en genomgång – t.ex. på en
+          klass på Yogastudion i Göteborg.
+        </p>
+      </section>
+
+      <section class="rounded-2xl border border-[#4A5D4E]/20 bg-[#4A5D4E]/5 p-5 sm:p-6">
+        <h2 class="font-serif text-lg text-[#2D2D2D] mt-0">Vad Sat Kriya ger dig</h2>
+        <p class="text-[#2D2D2D]/85 leading-relaxed mb-0">
+          Sat Kriya ger starka magmuskler, balanserar de lägre chakrana, motverkar rädsla och stärker
+          självförtroendet. 11 minuter ger kraftfull effekt och kan rensa gamla inkapslade minnen och
+          känslor. Ett bra pass att göra när du står inför förändringar i livet.
+        </p>
+      </section>
+
+      <section class="mt-12 pt-8 border-t border-[#4A5D4E]/15">
+        <p class="text-[#2D2D2D]/70 text-sm">
+          Vill du lära dig Sat Kriya och andra Kundaliniyoga-övningar tillsammans med erfarna lärare?
+          Välkommen till våra klasser på Yogastudion i Göteborg – boka din plats via schemat på sidan
+          <a href="/boka" class="text-[#4A5D4E] hover:underline">Boka</a>.
+        </p>
+      </section>
+    </div>
+
+    <footer class="mt-12 pt-6">
+      <a
+        href="/lar-dig-mer"
+        class="inline-flex items-center text-sm font-medium text-[#4A5D4E] hover:text-[#2D2D2D]"
+      >
+        <span aria-hidden="true" class="mr-2">←</span>
+        Tillbaka till alla artiklar
+      </a>
+    </footer>
+  </main>
+</Layout>

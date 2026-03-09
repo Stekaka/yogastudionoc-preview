@@ -1,0 +1,55 @@
+---
+import type { Course } from "../../data/courses";
+
+interface Props {
+  course: Course;
+  index: number;
+}
+
+const { course, index } = Astro.props;
+const num = String(index + 1).padStart(2, "0");
+---
+
+<article
+  class="course-row group relative border-b border-black/5 py-10 sm:py-12 transition-colors hover:bg-black/[0.02]"
+  data-course-id={course.id}
+>
+  <a
+    href="#boka"
+    class="flex flex-wrap items-end justify-between gap-4 text-left"
+  >
+    <span
+      class="text-xs font-mono text-black/35 tabular-nums"
+      aria-hidden="true"
+    >
+      {num}
+    </span>
+    <div class="min-w-0 flex-1 max-w-3xl">
+      <h3 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-black tracking-tight leading-tight">
+        {course.title}
+      </h3>
+      <p class="mt-2 text-base sm:text-lg text-black/60 leading-relaxed">
+        {course.shortDescription}
+      </p>
+    </div>
+    <span
+      class="expand-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 text-black/50 transition-all group-hover:border-black/20 group-hover:text-black"
+      aria-hidden="true"
+    >
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+    </span>
+  </a>
+  <div
+    class="course-preview fixed right-8 top-1/2 z-20 w-72 -translate-y-1/2 overflow-hidden rounded-lg border border-black/10 bg-white shadow-xl pointer-events-none opacity-0 invisible transition-opacity duration-200 group-hover:opacity-100 group-hover:visible md:block hidden"
+    data-preview-for={course.id}
+  >
+    <img
+      src={course.imageUrl}
+      alt=""
+      class="aspect-[4/3] w-full object-cover"
+      loading="lazy"
+    />
+  </div>
+</article>
