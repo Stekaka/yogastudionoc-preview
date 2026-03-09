@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+ui/node_modules/
+
+# Build & cache
+dist/
+.astro/
+.vercel/
+ui/node_modules/
+ui/.cache/
+*.tsbuildinfo
+
+# Env
+.env
+.env.local
+.env.production
+
+# OS & IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
+storybook-static/
