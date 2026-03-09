@@ -8,6 +8,12 @@ body {
   background-color: #F5F2ED;
 }
 
+/* Fullskärm på iPhone – fyll safe area (notch/Dynamic Island) med sidans färg */
+html {
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+}
+
 /* Kurser-sidan: när pills sitter fast = EN glas-layer över båda (inga streck/färgskillnader) */
 body.ys-header-extended::before {
   content: "";
