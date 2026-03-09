@@ -1,0 +1,79 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { TRAININGS } from "../../data/trainings";
+
+const title = "Utbildningar – Yogastudion Göteborg";
+const description =
+  "Yogalärarutbildningar och specialkurser på Yogastudion i Göteborg: Yinyoga Flow, Shamanic Sound Healing med flera. Vegagatan 16.";
+---
+
+<Layout title={title} description={description}>
+  <main class="mx-auto w-full max-w-6xl px-4 py-10 sm:py-14">
+    <header class="mb-12 sm:mb-16">
+      <p class="text-sm text-[#2D2D2D]/60 uppercase tracking-wider mb-2">Yogastudion · Göteborg</p>
+      <h1 class="font-serif text-3xl sm:text-4xl text-[#2D2D2D]">
+        Utbildningar
+      </h1>
+      <p class="mt-4 text-[#2D2D2D]/80 max-w-xl">
+        Yogalärarutbildningar och specialkurser på plats på Vegagatan 16.
+      </p>
+    </header>
+
+    <ul class="grid gap-6 sm:gap-8 md:grid-cols-2" role="list">
+      {TRAININGS.map((training) => (
+        <li>
+          <article class="h-full flex flex-col rounded-2xl border border-black/5 bg-white/50 p-6 sm:p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition hover:border-[#c8a96e]/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+            {training.duration && (
+              <p class="text-xs font-medium uppercase tracking-[0.16em] text-[#c8a96e] mb-2">
+                {training.duration}
+              </p>
+            )}
+            <h2 class="font-serif text-xl sm:text-2xl text-[#2D2D2D]">
+              {training.title}
+            </h2>
+            <p class="mt-2 text-[#2D2D2D]/80 text-sm sm:text-base flex-1">
+              {training.shortDescription}
+            </p>
+            <dl class="mt-4 grid gap-1.5 text-sm text-[#2D2D2D]/75">
+              <div class="flex gap-2">
+                <dt class="shrink-0 text-[#2D2D2D]/60">Datum:</dt>
+                <dd>{training.meta.date}</dd>
+              </div>
+              {training.meta.teacher && (
+                <div class="flex gap-2">
+                  <dt class="shrink-0 text-[#2D2D2D]/60">Lärare:</dt>
+                  <dd>{training.meta.teacher}</dd>
+                </div>
+              )}
+              <div class="flex gap-2">
+                <dt class="shrink-0 text-[#2D2D2D]/60">Plats:</dt>
+                <dd>{training.meta.place}</dd>
+              </div>
+              {training.meta.price && (
+                <div class="flex gap-2">
+                  <dt class="shrink-0 text-[#2D2D2D]/60">Pris:</dt>
+                  <dd>{training.meta.price}{training.meta.priceNote ? ` – ${training.meta.priceNote}` : ""}</dd>
+                </div>
+              )}
+              {training.meta.note && (
+                <div class="flex gap-2">
+                  <dt class="shrink-0 text-[#2D2D2D]/60">Obs:</dt>
+                  <dd>{training.meta.note}</dd>
+                </div>
+              )}
+            </dl>
+            <p class="mt-5">
+              <a
+                href={`/utbildningar/${training.slug}`}
+                class="inline-flex items-center gap-2 text-sm font-medium text-[#c8a96e] hover:text-[#2D2D2D] transition-colors"
+              >
+                Läs mer om utbildningen
+                <span aria-hidden="true">→</span>
+              </a>
+            </p>
+          </article>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>

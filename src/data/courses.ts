@@ -225,7 +225,7 @@ Därför läggs stor vikt på att utföra yogaställningarna på ett anatomiskt 
       longDescription: `Välkommen till din ljudresa. Låt ljudvågor och vibrationer guida dig in i djup avslappning där kropp och sinne får vila, bearbeta och återhämta sig. Under sessionen kombineras ljudresan med Reiki – en energibaserad metod som många upplever som lugnande och balanserande.
 
 Varje upplevelse är unik. Du kan känna dig tyngdlös, uppleva inre bilder, temperaturväxlingar eller nya insikter – allt i din egen takt. Hjärnan är formbar, och i vilotillstånd ges utrymme för förändring och läkning. Mellan sessionerna kan du märka nya perspektiv och en djupare kontakt med dig själv. Välkommen till en resa inåt – där du får vara helt och fullt du. YogaNidra och Reiki på Yogastudion, Göteborg.`,
-      imageUrl: "https://images.pexels.com/photos/3820348/pexels-photo-3820348.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      imageUrl: "/images/recept/reiki2.png",
       courseType: "yoga-nidra-innerdance-reiki",
     },
     {
@@ -237,7 +237,7 @@ Varje upplevelse är unik. Du kan känna dig tyngdlös, uppleva inre bilder, tem
       longDescription: `För dig som både vill dansa och meditera. Vi börjar med centrering och grundning för att förbereda kroppen inför danscykeln – frigörande dans – och dansar oss genom de fyra elementen: jord, eld, vatten och luft. Därefter följer en kort tyst meditation i stillhet. Passet avrundas med avslappning och vila.
 
 Dansmeditation är en metod för att frigöra energi, öppna upp för kreativa processer och bli mer närvarande i nuet genom enkla andnings- och kroppsövningar. Inga förkunskaper krävs. Boka dansmeditation på Yogastudion i Linné, Göteborg.`,
-      imageUrl: "https://images.pexels.com/photos/3820346/pexels-photo-3820346.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      imageUrl: "/images/recept/dans2.png",
       courseType: "dansmeditation",
     },
     {

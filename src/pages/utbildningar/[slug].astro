@@ -1,0 +1,169 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getTrainingBySlug, getAllTrainingSlugs } from "../../data/trainings";
+
+export function getStaticPaths() {
+  return getAllTrainingSlugs().map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const training = slug ? getTrainingBySlug(slug) : undefined;
+
+if (!training) {
+  return Astro.redirect("/utbildningar");
+}
+
+const title = `${training.title} – Utbildningar | Yogastudion Göteborg`;
+const description =
+  training.shortDescription.length > 155
+    ? training.shortDescription.slice(0, 155) + "…"
+    : training.shortDescription;
+const { meta, blocks, ctaLabel, ctaHref } = training;
+
+function linkifyContact(s: string): string {
+  return s
+    .replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, (m: string) => `<a href="mailto:${m}" class="text-[#c8a96e] hover:underline">${m}</a>`)
+    .replace(/(07[\d\s-]{8,})/g, (m: string) => `<a href="tel:${m.replace(/\s|-/g, "")}" class="text-[#c8a96e] hover:underline">${m.trim()}</a>`);
+}
+---
+
+<Layout title={title} description={description}>
+  <main class="mx-auto w-full max-w-6xl px-4 py-10 sm:py-14">
+    <nav aria-label="Brödsmulor" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-2 text-sm text-[#2D2D2D]/70">
+        <li><a href="/" class="hover:text-[#c8a96e]">Startsida</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/utbildningar" class="hover:text-[#c8a96e]">Utbildningar</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-[#2D2D2D]" aria-current="page">{training.title}</li>
+      </ol>
+    </nav>
+
+    <article class="rounded-2xl border border-black/5 bg-white/50 p-6 sm:p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+      {training.duration && (
+        <p class="text-xs font-medium uppercase tracking-[0.16em] text-[#c8a96e] mb-2">
+          {training.duration}
+        </p>
+      )}
+      <h1 class="font-serif text-2xl sm:text-3xl text-[#2D2D2D]">
+        {training.title}
+      </h1>
+      <p class="mt-2 text-[#2D2D2D]/80 font-medium">
+        {training.shortDescription}
+      </p>
+
+      <dl class="mt-6 grid gap-3 sm:grid-cols-2 text-sm">
+        <div class="flex gap-2">
+          <dt class="text-[#2D2D2D]/60 shrink-0">Datum:</dt>
+          <dd>{meta.date}</dd>
+        </div>
+        {meta.teacher && (
+          <div class="flex gap-2">
+            <dt class="text-[#2D2D2D]/60 shrink-0">Lärare:</dt>
+            <dd>{meta.teacher}</dd>
+          </div>
+        )}
+        {meta.guestTeacher && (
+          <div class="flex gap-2">
+            <dt class="text-[#2D2D2D]/60 shrink-0">Gästlärare:</dt>
+            <dd>{meta.guestTeacher}</dd>
+          </div>
+        )}
+        <div class="flex gap-2">
+          <dt class="text-[#2D2D2D]/60 shrink-0">Plats:</dt>
+          <dd>{meta.place}</dd>
+        </div>
+        {meta.price && (
+          <div class="flex gap-2">
+            <dt class="text-[#2D2D2D]/60 shrink-0">Pris:</dt>
+            <dd>{meta.price}{meta.priceNote ? ` – ${meta.priceNote}` : ""}</dd>
+          </div>
+        )}
+        {meta.note && (
+          <div class="flex gap-2 sm:col-span-2">
+            <dt class="text-[#2D2D2D]/60 shrink-0">Obs:</dt>
+            <dd>{meta.note}</dd>
+          </div>
+        )}
+      </dl>
+
+      <p class="mt-4 text-sm">
+        Se våra bokningsvillkor. <a href="/boka" class="text-[#c8a96e] font-medium hover:underline">Boka</a>
+      </p>
+
+      <div class="mt-8 pt-8 border-t border-black/5 space-y-8">
+        {blocks.map((block) => (
+          <>
+            {block.quote && (
+              <blockquote class="border-l-4 border-[#c8a96e]/50 pl-5 py-1 text-[#2D2D2D]/90 italic">
+                "{block.quote}"
+              </blockquote>
+            )}
+            {block.paragraphs && block.paragraphs.length > 0 && !block.heading && (
+              <div class="space-y-4 text-[#2D2D2D]/90 leading-relaxed">
+                {block.paragraphs.map((p) => (
+                  <p set:html={p.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>")} />
+                ))}
+              </div>
+            )}
+            {block.teacher && (
+              <div class="p-5 rounded-xl bg-[#F5F2ED]/80 border border-[#c8a96e]/20">
+                <h3 class="font-serif text-lg text-[#2D2D2D] mb-2">Huvudlärare: {block.teacher.name}</h3>
+                {block.teacher.italic && (
+                  <p class="text-sm text-[#2D2D2D]/80 italic mb-3">{block.teacher.italic}</p>
+                )}
+                {block.teacher.bio && (
+                  <p class="text-sm text-[#2D2D2D]/90">
+                    {block.teacher.bio.split("Spiritual Uplift").length > 1 ? (
+                      <>
+                        {block.teacher.bio.split("Spiritual Uplift")[0]}
+                        <a href={block.teacher.link?.href ?? "#"} target="_blank" rel="noopener noreferrer" class="text-[#c8a96e] hover:underline">Spiritual Uplift</a>
+                        {block.teacher.bio.split("Spiritual Uplift")[1]}
+                      </>
+                    ) : (
+                      block.teacher.bio
+                    )}
+                  </p>
+                )}
+                {block.teacher.contact && (
+                  <p class="mt-3 text-sm" set:html={linkifyContact(block.teacher.contact)} />
+                )}
+              </div>
+            )}
+            {block.heading && (block.list || block.paragraphs) && (
+              <div class="space-y-4">
+                <h3 class="font-serif text-lg text-[#2D2D2D]">{block.heading}</h3>
+                {block.list && block.list.length > 0 && (
+                  <ul class="list-disc list-inside space-y-2 text-[#2D2D2D]/90">
+                    {block.list.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                )}
+                {block.paragraphs && block.paragraphs.length > 0 && (
+                  <div class="space-y-4 text-[#2D2D2D]/90 leading-relaxed">
+                    {block.paragraphs.map((p) => (
+                      <p set:html={p.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>")} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        ))}
+      </div>
+
+      {ctaLabel && ctaHref && (
+        <p class="mt-8">
+          <a
+            href={ctaHref}
+            class="inline-flex items-center gap-2 rounded-full bg-[#2D2D2D] px-6 py-3 text-sm font-medium text-white hover:bg-[#1a1a1a] transition-colors"
+          >
+            {ctaLabel}
+            <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      )}
+    </article>
+  </main>
+</Layout>
