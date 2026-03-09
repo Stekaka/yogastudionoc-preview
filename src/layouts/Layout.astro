@@ -94,12 +94,13 @@ const logoImage = `${baseUrl}/images/recept/YogastudionLogo2.png`;
           <button
             id="ys-mobile-menu-btn"
             type="button"
-            class="md:hidden inline-flex items-center justify-center h-11 w-11 rounded-full bg-[#F5F2ED]/30 hover:bg-[#F5F2ED]/55 backdrop-blur-lg shadow-[0_6px_18px_rgba(0,0,0,0.08)] ring-1 ring-black/5 transition"
+            class="ys-mobile-menu-btn md:hidden inline-flex items-center justify-center h-11 w-11 rounded-full bg-[#F5F2ED]/30 hover:bg-[#F5F2ED]/55 backdrop-blur-lg shadow-[0_6px_18px_rgba(0,0,0,0.08)] ring-1 ring-black/5 transition relative"
             aria-label="Öppna meny"
             aria-controls="ys-mobile-menu"
             aria-expanded="false"
           >
             <svg
+              class="ys-menu-icon ys-menu-icon--hamburger"
               width="22"
               height="22"
               viewBox="0 0 24 24"
@@ -110,6 +111,18 @@ const logoImage = `${baseUrl}/images/recept/YogastudionLogo2.png`;
               <path d="M4 7H20" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
               <path d="M4 12H20" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
               <path d="M4 17H20" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <svg
+              class="ys-menu-icon ys-menu-icon--close absolute"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M6 6L18 18" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
+              <path d="M18 6L6 18" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
             </svg>
           </button>
         </div>
@@ -127,32 +140,10 @@ const logoImage = `${baseUrl}/images/recept/YogastudionLogo2.png`;
             aria-modal="true"
             aria-label="Meny"
             id="ys-mobile-menu-panel"
-            class="fixed right-0 z-50 w-[19rem] max-w-[86vw] bg-[#F5F2ED]/95 backdrop-blur-xl shadow-[0_4px_12px_rgba(0,0,0,0.06)] border-l border-black/5 ys-mobile-menu-panel"
+            class="fixed right-0 z-50 w-[19rem] max-w-[86vw] ys-mobile-menu-panel"
             style="top: var(--ys-mobile-header-height, 4rem); height: calc(100dvh - var(--ys-mobile-header-height, 4rem)); max-height: calc(100dvh - var(--ys-mobile-header-height, 4rem));"
           >
-            <div class="flex items-center justify-between px-5 py-5 border-b border-black/5">
-              <span class="font-serif text-lg tracking-wide text-[#2D2D2D]">Meny</span>
-              <button
-                type="button"
-                data-ys-mobile-close
-                class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-[#F5F2ED]/50 hover:bg-black/5 text-[#2D2D2D] transition"
-                aria-label="Stäng meny"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path d="M6 6L18 18" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
-                  <path d="M18 6L6 18" stroke="#2D2D2D" stroke-width="1.8" stroke-linecap="round" />
-                </svg>
-              </button>
-            </div>
-
-            <nav class="px-5 py-5">
+            <nav class="px-5 pt-5 pb-5">
               <ul class="flex flex-col gap-2 text-base font-medium tracking-wide">
                 <li><a href="/kurser" class="block px-3 py-3 rounded-xl hover:bg-black/5 hover:text-[#c8a96e] transition-colors">Kurser</a></li>
                 <li><a href="/utbildningar" class="block px-3 py-3 rounded-xl hover:bg-black/5 hover:text-[#c8a96e] transition-colors">Utbildningar</a></li>
@@ -215,7 +206,6 @@ const logoImage = `${baseUrl}/images/recept/YogastudionLogo2.png`;
         btn.dataset.ysMobileMenuBound = "1";
 
         const overlay = menu.querySelector("[data-ys-mobile-overlay]");
-        const closeBtn = menu.querySelector("[data-ys-mobile-close]");
 
         const setOpen = (open) => {
           if (open && header) {
@@ -225,8 +215,14 @@ const logoImage = `${baseUrl}/images/recept/YogastudionLogo2.png`;
           }
           menu.dataset.open = open ? "true" : "false";
           btn.setAttribute("aria-expanded", open ? "true" : "false");
+          btn.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
+          btn.classList.toggle("ys-menu-open", open);
           menu.setAttribute("aria-hidden", open ? "false" : "true");
-          document.body.classList.toggle("overflow-hidden", open);
+          if (open) {
+            document.body.classList.add("overflow-hidden");
+          } else {
+            setTimeout(() => document.body.classList.remove("overflow-hidden"), 320);
+          }
         };
 
         const toggle = () => setOpen(menu.dataset.open !== "true");
@@ -234,7 +230,6 @@ const logoImage = `${baseUrl}/images/recept/YogastudionLogo2.png`;
 
         btn.addEventListener("click", toggle);
         overlay?.addEventListener("click", close);
-        closeBtn?.addEventListener("click", close);
 
         menu.querySelectorAll("a[href]").forEach((a) => a.addEventListener("click", close));
 

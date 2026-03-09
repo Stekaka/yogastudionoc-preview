@@ -60,6 +60,23 @@ html::before {
   will-change: auto;
 }
 
+/* Menyknapp: hamburger när stängd, kryss när öppen */
+.ys-mobile-menu-btn .ys-menu-icon--close {
+  opacity: 0;
+  pointer-events: none;
+}
+.ys-mobile-menu-btn.ys-menu-open .ys-menu-icon--hamburger {
+  opacity: 0;
+  pointer-events: none;
+}
+.ys-mobile-menu-btn.ys-menu-open .ys-menu-icon--close {
+  opacity: 1;
+  pointer-events: auto;
+}
+.ys-mobile-menu-btn .ys-menu-icon {
+  transition: opacity 0.2s ease;
+}
+
 /* Samma glaseffekt som header – frosted glass */
 .ys-mobile-menu-panel {
   background: linear-gradient(
