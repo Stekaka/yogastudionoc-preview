@@ -126,7 +126,7 @@ const BookingForm: React.FC = () => {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-xl border border-[#4A5D4E]/20 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] placeholder:text-[#2D2D2D]/40 focus:outline-none focus:ring-2 focus:ring-[#4A5D4E]/60 focus:border-transparent"
+          className="w-full rounded-xl border border-black/10 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] placeholder:text-[#2D2D2D]/40 focus:outline-none focus:ring-2 focus:ring-[#c8a96e]/50 focus:border-transparent"
           placeholder="Ditt namn"
         />
       </motion.div>
@@ -142,7 +142,7 @@ const BookingForm: React.FC = () => {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-xl border border-[#4A5D4E]/20 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] placeholder:text-[#2D2D2D]/40 focus:outline-none focus:ring-2 focus:ring-[#4A5D4E]/60 focus:border-transparent"
+          className="w-full rounded-xl border border-black/10 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] placeholder:text-[#2D2D2D]/40 focus:outline-none focus:ring-2 focus:ring-[#c8a96e]/50 focus:border-transparent"
           placeholder="din@mail.se"
         />
       </motion.div>
@@ -157,7 +157,7 @@ const BookingForm: React.FC = () => {
           required
           value={teacher}
           onChange={(e) => setTeacher(e.target.value)}
-          className="w-full rounded-xl border border-[#4A5D4E]/20 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] focus:outline-none focus:ring-2 focus:ring-[#4A5D4E]/60 focus:border-transparent"
+          className="w-full rounded-xl border border-black/10 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] focus:outline-none focus:ring-2 focus:ring-[#c8a96e]/50 focus:border-transparent"
         >
           <option value="">Välj lärare</option>
           {options.map((opt) => (
@@ -178,7 +178,7 @@ const BookingForm: React.FC = () => {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="w-full rounded-xl border border-[#4A5D4E]/20 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] focus:outline-none focus:ring-2 focus:ring-[#4A5D4E]/60 focus:border-transparent"
+          className="w-full rounded-xl border border-black/10 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] focus:outline-none focus:ring-2 focus:ring-[#c8a96e]/50 focus:border-transparent"
         />
       </motion.div>
 
@@ -192,7 +192,7 @@ const BookingForm: React.FC = () => {
           rows={3}
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className="w-full rounded-xl border border-[#4A5D4E]/20 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] placeholder:text-[#2D2D2D]/40 focus:outline-none focus:ring-2 focus:ring-[#4A5D4E]/60 focus:border-transparent resize-none"
+          className="w-full rounded-xl border border-black/10 bg-white/70 px-3.5 py-2.5 text-sm text-[#2D2D2D] placeholder:text-[#2D2D2D]/40 focus:outline-none focus:ring-2 focus:ring-[#c8a96e]/50 focus:border-transparent resize-none"
           placeholder="Berätta kort om din erfarenhet eller önskemål."
         />
       </motion.div>
@@ -201,14 +201,14 @@ const BookingForm: React.FC = () => {
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex justify-center items-center rounded-full bg-[#F5F2ED] px-4 py-2.5 text-sm font-medium text-[#4A5D4E] shadow-sm border border-[#4A5D4E]/25 hover:bg-[#E8E0D4] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+          className="inline-flex justify-center items-center rounded-full bg-[#2D2D2D] px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#1a1a1a] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
         >
           {submitting ? "Skickar..." : "Skicka bokningsförfrågan"}
         </button>
         {status && (
           <p
             className={`text-xs ${
-              status.type === "success" ? "text-emerald-700" : "text-red-700"
+              status.type === "success" ? "text-[#2D2D2D]" : "text-red-700"
             }`}
           >
             {status.text}

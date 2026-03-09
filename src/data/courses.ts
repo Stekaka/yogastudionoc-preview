@@ -249,7 +249,7 @@ Dansmeditation är en metod för att frigöra energi, öppna upp för kreativa p
       longDescription: `Under meditationen ges healing till var och en av er. Healing ökar ditt energiflöde och cirkulation, löser blockeringar och hjälper sinnet att återhämta sig. Det ger djup avslappning och välbefinnande.
 
 Du kan bli hjälpt av healing som stärker ditt inre helande arbete – en vacker och läkande process för din unika själ. Healing är alltid anpassat till dig och din situation. Här kan du släppa pressen att prestera och bara tillåta dig själv att ta emot. Healing & Budskap på Yogastudion, Vegagatan 16 i Göteborg.`,
-      imageUrl: "https://images.pexels.com/photos/3822620/pexels-photo-3822620.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      imageUrl: "/images/recept/Healing2.png",
       courseType: "healing-budskap",
     },
     {
@@ -261,7 +261,7 @@ Du kan bli hjälpt av healing som stärker ditt inre helande arbete – en vacke
       longDescription: `För företag och privata grupper erbjuder vi skräddarsydda yoga- eller gong-klasser, där du och dina anställda eller vänner får njuta av ett härligt pass. Passen kan anpassas efter gruppens önskemål och behov – på plats hos er eller i vår studio på Vegagatan 16 i Linné.
 
 Kontakta oss för bokning och priser: jill@jillskundalini.com eller 070-7958514. Företagsyoga och gruppyoga i Göteborg – Yogastudion.`,
-      imageUrl: "https://images.pexels.com/photos/3822624/pexels-photo-3822624.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      imageUrl: "/images/recept/Foretag2.png",
       courseType: "foretagsyoga",
     },
   ],

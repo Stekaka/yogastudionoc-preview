@@ -107,7 +107,7 @@ const {
           </button>
         </div>
 
-        <div id="ys-mobile-menu" class="md:hidden" hidden>
+        <div id="ys-mobile-menu" class="md:hidden ys-mobile-menu" data-open="false">
           <button
             type="button"
             data-ys-mobile-overlay
@@ -120,7 +120,7 @@ const {
             aria-modal="true"
             aria-label="Meny"
             id="ys-mobile-menu-panel"
-            class="fixed right-0 z-50 w-[19rem] max-w-[86vw] bg-[#F5F2ED]/85 backdrop-blur-xl shadow-2xl ring-1 ring-black/10"
+            class="fixed right-0 z-50 w-[19rem] max-w-[86vw] bg-[#F5F2ED]/85 backdrop-blur-xl shadow-2xl ring-1 ring-black/10 ys-mobile-menu-panel"
             style="top: var(--ys-mobile-header-height, 4rem); height: calc(100dvh - var(--ys-mobile-header-height, 4rem)); max-height: calc(100dvh - var(--ys-mobile-header-height, 4rem));"
           >
             <div class="flex items-center justify-between px-5 py-5 border-b border-black/5">
@@ -202,11 +202,11 @@ const {
       function initMobileMenu() {
         const btn = document.getElementById("ys-mobile-menu-btn");
         const menu = document.getElementById("ys-mobile-menu");
+        const header = document.querySelector("header");
         if (!btn || !menu) return;
         if (btn.dataset.ysMobileMenuBound === "1") return;
         btn.dataset.ysMobileMenuBound = "1";
 
-        const header = document.querySelector("header");
         const overlay = menu.querySelector("[data-ys-mobile-overlay]");
         const closeBtn = menu.querySelector("[data-ys-mobile-close]");
 
@@ -216,12 +216,13 @@ const {
           } else {
             document.documentElement.style.removeProperty("--ys-mobile-header-height");
           }
-          menu.hidden = !open;
+          menu.dataset.open = open ? "true" : "false";
           btn.setAttribute("aria-expanded", open ? "true" : "false");
+          menu.setAttribute("aria-hidden", open ? "false" : "true");
           document.body.classList.toggle("overflow-hidden", open);
         };
 
-        const toggle = () => setOpen(menu.hidden);
+        const toggle = () => setOpen(menu.dataset.open !== "true");
         const close = () => setOpen(false);
 
         btn.addEventListener("click", toggle);
