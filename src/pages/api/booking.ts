@@ -10,7 +10,6 @@ const INSTRUCTOR_ID_TO_EMAIL: Record<string, string> = {
   "mathias-bengtsson": "hej@yogastudion.com",
   "malin-wattrring": "hej@yogastudion.com",
   "jill-johansson": "hej@yogastudion.com",
-  "pernille-bjorkli": "hej@yogastudion.com",
   "eva-lotta-sandberg": "hej@yogastudion.com",
   "samson-telemichael": "samtec22n@gmail.com",
   "lisbet-wikman": "hej@yogastudion.com",

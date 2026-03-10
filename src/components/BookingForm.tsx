@@ -7,7 +7,6 @@ const TEACHER_OPTIONS = [
   "Mathias Bengtsson",
   "Malin Wättring",
   "Jill Johansson",
-  "Pernille Björkli",
   "Eva-Lotta Sandberg",
   "Samson Telemichael",
   "Lisbet Wikman",

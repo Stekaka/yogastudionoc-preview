@@ -2,54 +2,13 @@
 import Layout from "../layouts/Layout.astro";
 import TeacherGallery from "../components/TeacherGallery";
 
-const title = "Om Yogastudion";
+const title = "Våra lärare – Yogastudion";
 const description =
-  "Lär känna Yogastudion i Göteborg – vår filosofi, vår mjuka minimalism och våra yogalärare. Boka yoga och hitta en praktik som känns hemma i kroppen.";
+  "Lär känna yogalärarna på Yogastudion i Göteborg. Välkommen till en praktik med värme, tydlighet och möjlighet att anpassa efter dig.";
 ---
 
 <Layout title={title} description={description}>
-  <main class="mx-auto w-full max-w-6xl px-4 py-10 sm:py-14 space-y-14">
-    <about-hero-block
-      eyebrow="Yogastudion · Göteborg"
-      title="En stilla studio för närvaro"
-      subtitle="Yogastudion är en varm, mjuk plats mitt i Göteborg – skapad för återhämtning, kontakt och kraft. Här får du andas ut, landa i kroppen och låta praktiken möta livet som det är."
-      image-src="/videos/Yogastudionfrånköket.webp"
-    />
-
-    <content-image-section
-      id="section-filosofi"
-      eyebrow="Vår filosofi"
-      heading="Soft Minimalism – när det enkla får bära det viktiga"
-      image-src="/videos/Yogastudionfrånköket.webp"
-      image-alt="Interiör från Yogastudion – varm sandtonad miljö med mjukt ljus"
-    />
-
-    <content-image-section
-      id="section-rummet"
-      eyebrow="Rummet"
-      heading="En yogaoas i Linné – med allt du behöver på plats"
-      image-src="/videos/Yogastudionfrånköket.webp"
-      image-alt="Yogastudion från köket – lugn och stilla atmosfär"
-      reverse
-    />
-
-    <script define:vars={{
-      paragraphsFilosofi: [
-        "Vi tror på det avskalade. På utrymme mellan mattorna. På mjuka naturtoner och ett tempo där kroppen hinner ikapp.",
-        "Oavsett om du kommer för stillhet, styrka eller nervsystemets återhämtning så möter vi dig med värme, tydlighet och en praktik som kan anpassas efter dig.",
-        "Här får du landa utan prestation – och gå härifrån lite mer hemma i dig själv.",
-      ],
-      paragraphsRummet: [
-        "Studion är inredd för yoga och återhämtning. Mattor, bolster, filtar och klossar finns här – du tar bara med dig kläder du trivs i.",
-        "Vi gillar det personliga: mindre grupper, mer närvaro och en trygghet som gör det lättare att slappna av.",
-      ],
-    }}>
-      const sectionFilosofi = document.getElementById('section-filosofi');
-      const sectionRummet = document.getElementById('section-rummet');
-      if (sectionFilosofi) sectionFilosofi.paragraphs = paragraphsFilosofi;
-      if (sectionRummet) sectionRummet.paragraphs = paragraphsRummet;
-    </script>
-
+  <main class="mx-auto w-full max-w-6xl px-4 py-10 sm:py-14">
     <div class="mx-auto w-full max-w-6xl px-0 sm:px-0">
       <TeacherGallery client:load />
     </div>

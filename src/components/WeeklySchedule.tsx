@@ -415,13 +415,6 @@ const WeeklySchedule: React.FC<{ transparentBackground?: boolean; compactHeading
                                 <Clock3 className="h-3.5 w-3.5 text-[#2D2D2D]/70" />
                                 <time className="font-medium">{formatTimeRange(cls.time, cls.duration)}</time>
                               </span>
-                              <span className="inline-flex items-center gap-1">
-                                <User2 className="h-3.5 w-3.5 text-[#2D2D2D]/70" />
-                                <span>{cls.instructor}</span>
-                              </span>
-                              <span className="inline-flex items-center rounded-full bg-[#F5F2ED] px-2 py-0.5 text-[0.7rem] text-[#2D2D2D] border border-[#4A5D4E]/12">
-                                {COURSE_TYPE_LABEL[getCourseType(cls)]}
-                              </span>
                             </div>
                           </div>
                         </button>
@@ -444,9 +437,28 @@ const WeeklySchedule: React.FC<{ transparentBackground?: boolean; compactHeading
                                   och sinne. Passar både nybörjare och vana
                                   utövare.
                                 </p>
-                                {cls.level && (
-                                  <p className="text-[0.8rem] text-[#2D2D2D]/70">
-                                    {cls.level}
+                                {(cls.level || cls.instructor) && (
+                                  <p className="text-[0.8rem] text-[#2D2D2D]/70 flex flex-wrap items-center gap-1.5">
+                                    {cls.level && <span>{cls.level}</span>}
+                                    {cls.instructor && (
+                                      <>
+                                        <span aria-hidden="true">·</span>
+                                        <span className="inline-flex items-center gap-1">
+                                          <User2 className="h-3.5 w-3.5 text-[#2D2D2D]/70" />
+                                          <span>{cls.instructor}</span>
+                                        </span>
+                                      </>
+                                    )}
+                                    {(() => {
+                                      const typeKey = getCourseType(cls);
+                                      if (typeKey === "alla") return null;
+                                      return (
+                                        <>
+                                          <span aria-hidden="true">·</span>
+                                          <span>{COURSE_TYPE_LABEL[typeKey]}</span>
+                                        </>
+                                      );
+                                    })()}
                                   </p>
                                 )}
                                 <div className="flex items-center justify-between gap-3 pt-1">
